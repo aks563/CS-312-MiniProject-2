@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/stylesheet.css" rel="stylesheet">
+    <title>joke page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Input Your Name to Hear a Joke</h1>
+        
+            <% if (error) { %>
+            <p class="error">ERROR: <%= error %></p>
+        <% } %>
+        
+        <% if (typeof name !== 'undefined' && name) { %>
+            <% name = name.charAt(0).toUpperCase() + name.slice(1); %>
+        <% } %>
+
+        <% if (data && data.type === 'twopart') { %>
+            <div class="card">
+                <h3>Here is your joke <%= name %></h3>
+                <p><strong>Setup:</strong> <%= data.setup %></p>
+                <p><strong>Delivery:</strong> <%= data.delivery %></p>
+            </div>
+        <% } else if (data && data.type === 'single') { %>
+            <div class="card">
+                <h3>Here is your joke <%= name %></h3>
+                <p><%= data.joke %></p>
+            </div>
+        <% } %>
+
+        <div class="form-card">
+            <form action="/" method="POST">
+                <label for="category"><strong>Category:</strong></label>
+                <select name="category" id="category">
+                    <option value="Any">Any</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Misc">Miscellanious</option>
+                    <option value="Pun">Pun</option>
+                    <option value="Spooky">Spooky</option>
+                    <option value="Christmas">Christmas</option>
+                </select>
+                <br />
+                <label for="name"><strong>Name:</strong></label>
+                <input type="text" id="name" name="name" required>
+                <br />
+                <button type="submit" id="button">Tell me a Joke</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
